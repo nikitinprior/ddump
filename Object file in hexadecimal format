@@ -1,0 +1,178 @@
+I. The source code of the test program 1.C.
+--------------------------------------------
+
+#define VAL 2
+int a, b = 1;
+void main()
+{
+ /* set starting value */
+ a = b + VAL;
+}
+
+II. The contents of the 1.OBJ object file in hexadecimal format
+---------------------------------------------------------------
+
+
+
+      Length = 0a bytes                      Length = 0b bytes
+      |     Record_type = IDENT              |     Record_type = TEXT
+      |     |  Order_32    Order_16          |     |
+      |     |  |           |     Machine_name|     |
+      |     |  |           |     |           |     |
+     +----- -- ----------- ----- -----------+----- --   
+               1  2  3  4  5  6  7  8  9   a 
+0000: 0A 00 07 00 01 02 03 00 01 5A 38 30 00 0B 00 01	HEX
+      .  .  .  .  .  .  .  .  .  Z  8  0  .  .  .  .	ASCII
+
+                                       Length = 17 bytes
+                                       |     Record_type=TEXT 
+      Offset      Psect_name     Data  |     |  Offset 
+      |           |              |     |     |  |
+      ----------- -------------- -----+----- -- ----
+      1  2  3  4  5  6  7  8  9  a  b +         1  2
+0010: 00 00 00 00 64 61 74 61 00 01 00 17 00 01 00 00	HEX
+      .  .  .  .  d  a  t  a  .  .  .  .  .  .  .  .	ASCII
+
+            Psect_name     Data
+            |              |
+      ----- -------------- --------------------------
+      3  4  5  6  7  8  9  a  b  c  d  e  f  10 11 12
+0020: 00 00 74 65 78 74 00 CD 00 00 2A 00 00 23 23 22	HEX
+      .  .  t  e  x  t  .  .  .  .  *  .  .  #  #  "	ASCII
+
+                     Length = 1e bytes
+                     |     Record_type=RELOC
+                     |     |  Offset=1             Offset = 4
+                     |     |  |     reloc_type     |
+                     |     |  |     |  Psect_name  |
+                     |     |  |     |  |           |
+      --------------+----- -- ----- -- ----------- --
+      13 14 15 16 17          1  2  3  4  5  6  7  8
+0030: 00 00 C3 00 00 1E 00 03 01 00 22 63 73 76 00 04	HEX
+      .  .  .  .  .  .  .  .  .  .  "  c  s  v  .  .	ASCII
+
+                           Offset = 9           Offset = 12
+         reloc_type        |     reloc_type     |
+         |  Psect_name     |     |  Psect_name  |
+         |  |              |     |  |           |
+      -- -- -------------- ----- -- ----------- -----
+      9  a  b  c  d  e  f  10 11 12 13 14 15 16 17 18
+0040: 00 12 64 61 74 61 00 09 00 12 62 73 73 00 0C 00	HEX
+      .  .  d  a  t  a  .  .  .  .  b  s  s  .  .  .	ASCII
+
+                        Length 3 bytes
+      reloc_type        |     Record_type=PSECT Record_type = PSECT
+      |  Psect_name     |     |  Psect_flags    |  Psect_flags
+      |  |              |     |  |     Psect_nam|  |
+      |  |              |     |  |     |        |  |
+      -- --------------+----- -- ----- --+----- -- --
+      19 1a 1b 1c 1d 1e          1  2  3           1
+0050: 22 63 72 65 74 00 03 00 02 90 00 00 06 00 02 10	HEX
+      "  c  r  e  t  .  .  .  .  .  .  .  .  .  .  .	ASCII
+
+                     Length = 8
+                     |     Record_type = TEXT
+         Psect_name  |     |
+         |           |     |  Offset      Psect_name
+      -- -----------+----- -- ----------- ----------
+      2  3  4  5  6           1  2  3  4  5  6  7  8
+0060: 00 62 73 73 00 08 00 01 02 00 00 00 62 73 73 00	HEX
+      .  b  s  s  .  .  .  .  .  .  .  .  b  s  s  .	ASCII
+
+      Length = 7                      Length=7
+      |     Record_type = PSECT     |     Record_type = PSECT
+      |     |  Psect_flags=10       |     |  Psect_flags = 10
+      |     |  |     Psect_name     |     |  |     Psect_name
+      |     |  |     |              |     |  |     |
+      ----- -- ----- --------------+----- -- ----- --
+               1  2  3  4  5  6  7           1  2  3
+0070: 07 00 02 10 00 64 61 74 61 00 07 00 02 10 00 74	HEX
+      .  .  .  .  .  d  a  t  a  .  .  .  .  .  .  t	ASCII
+
+                  Length = 50 (error when creating an object file by compiler v1.3)
+                  |     Record_type=SYM
+                  |     |  Value       Flags Psect_name
+                  |     |  |           |     |
+      -----------+----- -- ----------- ----- --------
+      4  5  6  7           1  2  3  4  5  6  7  8  9
+0080: 65 78 74 00 50 00 04 00 00 00 00 10 00 62 73 73	HEX
+      e  x  t  .  P  .  .  .  .  .  .  .  .  b  s  s	ASCII
+
+         Sym_name Value       Flags Psect_name     Sym_name
+         |        |           |     |              |
+      -- -------- ----------- ----- -------------- --
+      a  b  c  d  e  f  10 11 12 13 14 15 16 17 18 19
+0090: 00 5F 61 00 00 00 00 00 10 00 64 61 74 61 00 5F	HEX
+      .  _  a  .  .  .  .  .  .  .  d  a  t  a  .  _	ASCII
+
+            Value       Flags Psect_name     Sym_name
+            |           |     |              |
+      ----- ----------- ----- -------------- --------
+      20 21 22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f
+00A0: 62 00 00 00 00 00 10 00 74 65 78 74 00 5F 6D 61	HEX
+      b  .  .  .  .  .  .  .  t  e  x  t  .  _  m  a	ASCII
+
+                              Psect_name
+           Value       Flags  |     Sym_name       Value=0
+           |           |      |     |              |
+      ----- ----------- ----- ----- -------------- -- 
+      30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f
+00B0: 69 6E 00 00 00 00 00 16 00 00 63 72 65 74 00 00	HEX
+      i  n  .  .  .  .  .  .  .  .  c  r  e  t  .  .	ASCII
+
+                     Psect_name
+               Flags |  Sym_name    Value       Flags
+               |     |  |           |           |
+      -------- ----- -- ----------- ----------- -----
+      40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f
+00C0: 00 00 00 16 00 00 63 73 76 00 00 00 00 00 16 00	HEX
+      .  .  .  .  .  .  c  s  v  .  .  .  .  .  .  .	ASCII
+
+                           Length = 2
+      Psect_name           |     Record_type = END
+      |  Sym_name          |     |  Flags End of file
+      |  |                 |     |  |     |
+      -- -----------------+----- -- ----- -----------
+      50 51 52 53 54 55 56          1  2
+00D0: 00 69 6E 64 69 72 00 02 00 06 00 00 1A 1A 1A 1A	HEX
+      .  i  n  d  i  r  .  .  .  .  .  .  .  .  .  .	ASCII
+
+
+III. Outputting the contents of object file 1.OBJ by DUMP.COM
+-------------------------------------------------------------
+
+1.obj
+	1	IDENT
+		Machine		= Z80
+		32 bit order	= 0 1 2 3
+		16 bit order	= 0 1
+	2	TEXT
+		data	0	2
+		01 00
+	3	TEXT
+		text	0	14
+		CD 00 00 2A 00 00 23 23 22 00 00 C3 00 00
+	4	RELOC
+		1	RNAME	csv	2
+		4	RPSECT	data	2
+		9	RPSECT	bss	2
+		12	RNAME	cret	2
+	5	PSECT
+		(abs)	GLOBAL	ABS
+	6	PSECT
+		bss	GLOBAL
+	7	TEXT
+		bss	2	0
+	8	PSECT
+		data	GLOBAL
+	9	PSECT
+		text	GLOBAL
+	10	SYM
+		_a	bss	0	GLOBAL
+		_b	data	0	GLOBAL
+		_main	text	0	GLOBAL
+		cret		0	GLOBAL	EXTERN
+		csv		0	GLOBAL	EXTERN
+		indir		0	GLOBAL	EXTERN
+	11	END
+

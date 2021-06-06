@@ -1,4 +1,4 @@
-Recreating the DUMP program.C to view Hi-Tech C compiler object files for CP/M.
+Recreating the program DUMP.C to view Hi-Tech C compiler object files for CP/M.
 
 Among the available files of the Hi-Tech C v3.09 compiler for CP/M, there is no DUMP.COM file for displaying the contents of object files created by programs from this package.
 To correct this fact, the C source code was RESTORED by disassembling the DUMP.COM executable file from the Hi-Tech v1.3 compiler package.

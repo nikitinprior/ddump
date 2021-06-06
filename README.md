@@ -18,5 +18,9 @@ The file "Object Code Format_en" contains information found on the Internet abou
 The restored program processes object files of the first versions. The subsequent development of the compiler and its support for various processors forced Hi-Tech to expand the functionality of the object file. However, for the Hi-Tech v3.09 compiler for CP/M, they are not required and the restored version of the program is sufficient.
 
 Appreciation
-    - to an unknown person named Michael, who saved information about Hi-Tech object files.
-    - Tony Nicholson for maintaining the compiler information and providing the Hi-Tech C v1.3 compiler. 
+    to an unknown person named Michael, who saved information about Hi-Tech object files.
+    
+    Tony Nicholson for maintaining the compiler information and providing the Hi-Tech C v1.3 compiler. 
+    
+Andrey Nikitin
+    

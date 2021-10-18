@@ -17,6 +17,20 @@ The file "Object Code Format_en" contains information found on the Internet abou
 
 The restored program processes object files of the first versions. The subsequent development of the compiler and its support for various processors forced Hi-Tech to expand the functionality of the object file. However, for the Hi-Tech v3.09 compiler for CP/M, they are not required and the restored version of the program is sufficient.
 
+Mark Ogden made the following changes to the dump.c program:
+1. Fixed inaccuracies and decompilation errors.
+2. Added explanatory comments.
+3. Assigned meaningful names to variables and functions.
+4. In some functions, excluded labels and goto statements.
+5. With the encouragement of conditional compilation, the program is built and run on modern 64-bit systems.
+
+Thanks to these changes, the program code has acquired a cleaner and more complete look.
+
+Thanks to Mark Ogden for correcting the program code.
+
+The new version of the program has the name dump3.c.
+
+
 Appreciation
 
     to an unknown person named Michael, who saved information about Hi-Tech object files.
